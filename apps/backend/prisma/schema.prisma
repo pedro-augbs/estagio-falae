@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum FeedbackChannel {
+  GOOGLE
+  IFOOD
+  PESQUISA
+}
+
+enum FeedbackStatus {
+  NOVO
+  EM_ANALISE
+  CONCLUIDO
+}
+
+model Feedback {
+  id           String          @id @default(uuid())
+  customerName String
+  rating       Int
+  comment      String?
+  channel      FeedbackChannel
+  status       FeedbackStatus
+  createdAt    DateTime        @default(now())
+  notes        FeedbackNote[]
+
+  @@index([createdAt])
+  @@index([channel])
+  @@index([status])
+  @@index([rating])
+}
+
+model FeedbackNote {
+  id          String   @id @default(uuid())
+  feedbackId  String
+  description String
+  createdAt   DateTime @default(now())
+  feedback    Feedback @relation(fields: [feedbackId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+}
