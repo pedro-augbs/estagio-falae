@@ -6,6 +6,7 @@ import { FeedbackList } from "@/features/feedbacks/components/feedback-list"
 import { FeedbackDetailsSheet } from "@/features/feedbacks/components/feedback-details-sheet"
 import { FeedbackMetrics } from "@/features/feedbacks/components/feedback-metrics"
 import { FeedbackSidebar } from "@/features/feedbacks/components/feedback-sidebar"
+import { readSidebarPreference } from "@/lib/sidebar-state"
 import { useState } from "react"
 import { useEffect } from "react"
 import { useFeedbacks } from "@/features/feedbacks/hooks/use-feedbacks"
@@ -14,7 +15,9 @@ const DESKTOP_QUERY = "(min-width: 1024px)"
 
 export default function App() {
   const { data, metrics, filters, setFilters, clearFilters, loading, error, refetch } = useFeedbacks()
-  const [sidebarOpen, setSidebarOpen] = useState(() => window.matchMedia(DESKTOP_QUERY).matches)
+  const [sidebarOpen, setSidebarOpen] = useState(() =>
+    readSidebarPreference(document.cookie) ?? window.matchMedia(DESKTOP_QUERY).matches
+  )
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const hasFilters = filters.search || filters.channel !== "ALL" || filters.status !== "ALL" || filters.rating !== "ALL"
 

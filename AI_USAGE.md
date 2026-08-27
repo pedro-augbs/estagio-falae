@@ -35,9 +35,9 @@ Esses ajustes foram detectados por revisão de diff e registrados nos relatório
 
 As validações registradas ao longo do trabalho incluem:
 
-- `npm test`: 26 testes do backend e 6 testes do frontend passando.
+- `npm test`: 27 testes do backend e 11 testes do frontend passando.
 - `npm --workspace apps/frontend run build`: build Vite/TypeScript passando.
-- Testes focados do frontend: query builder 2/2 e API 3/3.
+- Testes focados do frontend: query builder 2/2 e API 4/4.
 - Testes do service: 11/11.
 - Testes do repository: 2/2.
 - Testes HTTP: 10/10.

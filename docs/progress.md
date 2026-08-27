@@ -16,10 +16,10 @@ Estado após a validação final do projeto.
 
 ## Validações acumuladas
 
-- Backend: `npm test` passou com 26 testes.
-- Frontend: `npm test` passou com 6 testes e `npm --workspace apps/frontend run build` passou.
+- Backend: `npm test` passou com 27 testes.
+- Frontend: `npm test` passou com 11 testes e `npm --workspace apps/frontend run build` passou.
 - Frontend: `npm --workspace apps/frontend run build` passou nas Tasks 5, 6 e 7.
-- Testes focados do frontend: query builder 2/2 e API 3/3.
+- Testes focados do frontend: query builder 2/2 e API 4/4.
 - Fluxo manual contra a API: feedback crítico sem nota retorna 409; criação de nota retorna 201; conclusão retorna 200; seed repetido mantém 12 feedbacks e 3 notas.
 - `git diff --check` passou nos ciclos de correção registrados.
 - Banco final: `db:generate`, `db:migrate`, `migrate deploy` e `migrate status` passaram; seed final recriou 12 feedbacks e 3 notas.

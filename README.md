@@ -137,4 +137,3 @@ Não há login, cadastro de contas, perfis, permissões, criação/edição de f
 - [AI_USAGE.md](AI_USAGE.md): uso de agentes, decisões corrigidas em revisão e evidências.
 - [docs/architecture.md](docs/architecture.md): módulos, dados e contrato.
 - [docs/progress.md](docs/progress.md): tarefas, commits e pendências.
-- [docs/superpowers/specs/2026-08-26-feedback-dashboard-design.md](docs/superpowers/specs/2026-08-26-feedback-dashboard-design.md): especificação aprovada antes da implementação.
