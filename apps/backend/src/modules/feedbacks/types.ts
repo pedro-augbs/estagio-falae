@@ -9,6 +9,8 @@ export type FeedbackChannel = PrismaFeedbackChannel;
 export const FeedbackStatus = PrismaFeedbackStatus;
 export type FeedbackStatus = PrismaFeedbackStatus;
 
+export const MAX_NOTE_LENGTH = 500;
+
 export type FeedbackRecord = {
   id: string;
   customerName: string;

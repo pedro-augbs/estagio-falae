@@ -7,7 +7,7 @@ import type {
   FeedbackRepository,
   FeedbackStatus
 } from "./types.js";
-import { FeedbackStatus as FeedbackStatusValues } from "./types.js";
+import { FeedbackStatus as FeedbackStatusValues, MAX_NOTE_LENGTH } from "./types.js";
 
 export class FeedbackService {
   constructor(private readonly repository: FeedbackRepository) {}
@@ -51,6 +51,9 @@ export class FeedbackService {
     const trimmedDescription = description.trim();
     if (!trimmedDescription) {
       throw new ValidationError("Descricao obrigatoria");
+    }
+    if (trimmedDescription.length > MAX_NOTE_LENGTH) {
+      throw new ValidationError(`Anotacao deve ter no maximo ${MAX_NOTE_LENGTH} caracteres`);
     }
 
     return this.repository.createNote(id, trimmedDescription);

@@ -1,4 +1,4 @@
-import { FeedbackChannel, FeedbackStatus } from "./types.js";
+import { FeedbackChannel, FeedbackStatus, MAX_NOTE_LENGTH } from "./types.js";
 
 const feedbackProperties = {
   id: { type: "string" },
@@ -40,7 +40,7 @@ export const createFeedbackNoteBodySchema = {
   additionalProperties: false,
   required: ["description"],
   properties: {
-    description: { type: "string" }
+    description: { type: "string", maxLength: MAX_NOTE_LENGTH }
   }
 } as const;
 

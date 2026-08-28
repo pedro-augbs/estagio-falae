@@ -25,6 +25,8 @@ export type FeedbackNote = {
   createdAt: string
 }
 
+export const MAX_NOTE_LENGTH = 500
+
 export type FeedbackMetrics = { averageRating: number; positive: number; critical: number }
 export type FeedbackListResponse = { items: Feedback[]; total: number; metrics: FeedbackMetrics }
 
