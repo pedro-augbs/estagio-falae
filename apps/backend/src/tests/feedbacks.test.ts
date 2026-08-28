@@ -93,6 +93,14 @@ test("recusa descricao com apenas espacos ao adicionar anotacao", async () => {
   );
 });
 
+test("recusa anotacao acima de 500 caracteres", async () => {
+  const service = new FeedbackService(makeRepository());
+
+  await assert.rejects(service.addNote("critical", "a".repeat(501)), (error: Error) =>
+    error.message.includes("500 caracteres")
+  );
+});
+
 test("remove espacos nas pontas antes de salvar anotacao", async () => {
   let savedDescription = "";
   const service = new FeedbackService(
@@ -301,6 +309,22 @@ test("POST /api/feedbacks/:id/notes cria anotacao com 201", async (t) => {
     ...note,
     createdAt: note.createdAt.toISOString()
   });
+});
+
+test("POST /api/feedbacks/:id/notes recusa anotacao acima de 500 caracteres", async (t) => {
+  const app = await buildTestApp();
+
+  t.after(async () => {
+    await app.close();
+  });
+
+  const response = await app.inject({
+    method: "POST",
+    url: `/api/feedbacks/${validFeedbackId}/notes`,
+    payload: { description: "a".repeat(501) }
+  });
+
+  assert.equal(response.statusCode, 400);
 });
 
 test("PATCH /api/feedbacks/:id/status altera status com 200", async (t) => {

@@ -1,7 +1,11 @@
 import assert from "node:assert/strict"
 import test from "node:test"
 
-import { toQuery, type FeedbackFilters } from "./types"
+import { MAX_NOTE_LENGTH, toQuery, type FeedbackFilters } from "./types"
+
+test("limite de anotacao e 500 caracteres", () => {
+  assert.equal(MAX_NOTE_LENGTH, 500)
+})
 
 test("toQuery combina somente os filtros ativos", () => {
   const filters: FeedbackFilters = {
