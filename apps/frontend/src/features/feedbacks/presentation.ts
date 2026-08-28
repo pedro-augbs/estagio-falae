@@ -13,15 +13,15 @@ export const statusLabel: Record<FeedbackStatus, string> = {
 }
 
 export const statusToneClass: Record<FeedbackStatus, string> = {
-  NOVO: "border-primary/25 bg-primary/10 text-primary",
-  EM_ANALISE: "border-warning/30 bg-warning/15 text-warning-foreground",
-  CONCLUIDO: "border-success/30 bg-success/15 text-success-foreground",
+  NOVO: "border-sky-600/30 bg-sky-100 text-sky-800 dark:border-sky-400/40 dark:bg-sky-400/15 dark:text-sky-300",
+  EM_ANALISE: "border-amber-600/30 bg-amber-100 text-amber-900 dark:border-amber-400/40 dark:bg-amber-400/15 dark:text-amber-300",
+  CONCLUIDO: "border-emerald-600/30 bg-emerald-100 text-emerald-800 dark:border-emerald-400/40 dark:bg-emerald-400/15 dark:text-emerald-300",
 }
 
 export const statusTextClass: Record<FeedbackStatus, string> = {
-  NOVO: "text-primary",
-  EM_ANALISE: "text-warning-foreground",
-  CONCLUIDO: "text-success-foreground",
+  NOVO: "text-sky-800 dark:text-sky-300",
+  EM_ANALISE: "text-amber-900 dark:text-amber-300",
+  CONCLUIDO: "text-emerald-800 dark:text-emerald-300",
 }
 
 const dateFormatter = new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "short", year: "numeric" })
@@ -36,8 +36,8 @@ export function formatFeedbackDate(value: string | Date, now = new Date()) {
   if (Number.isNaN(date.getTime())) return "Data indisponível"
 
   const daysAgo = Math.round((calendarDay(now) - calendarDay(date)) / 86_400_000)
-  const label = daysAgo === 0 ? "Hoje" : daysAgo === 1 ? "Ontem" : dateFormatter.format(date)
-  return `${label} às ${timeFormatter.format(date)}`
+  const label = daysAgo === 0 ? "Hoje" : daysAgo === 1 ? "Ontem" : dateFormatter.format(date).replaceAll(" de ", " ")
+  return `${label} ${timeFormatter.format(date)}`
 }
 
 function calendarDay(date: Date) {
