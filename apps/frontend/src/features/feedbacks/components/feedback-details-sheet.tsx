@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Textarea } from "@/components/ui/textarea"
-import { shouldDismissSwipe } from "@/lib/swipe-dismiss"
+import { shouldDismissSwipe, shouldStartSwipe } from "@/lib/swipe-dismiss"
 import { cn } from "@/lib/utils"
 import { createNote, fetchFeedback, fetchNotes, updateStatus } from "../api"
 import { channelLabel, formatFeedbackDate, statusLabel, statusTextClass, statusToneClass } from "../presentation"
@@ -54,7 +54,7 @@ export function FeedbackDetailsSheet({ id, onOpenChange, onUpdated }: FeedbackDe
   }
 
   function startSwipe(event: ReactPointerEvent<HTMLDivElement>) {
-    if (swipeEnabled && event.pointerType === "touch") {
+    if (shouldStartSwipe(swipeEnabled, event.pointerType, event.target as Element | null)) {
       swipeStartRef.current = { x: event.clientX, y: event.clientY }
     }
   }
@@ -68,6 +68,7 @@ export function FeedbackDetailsSheet({ id, onOpenChange, onUpdated }: FeedbackDe
       resetSwipe()
       return
     }
+    if (deltaX < 8) return
     event.preventDefault()
     if (!event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.setPointerCapture(event.pointerId)
     setIsSwiping(true)
