@@ -28,7 +28,7 @@ O setup de desenvolvimento do backend é automático. Ao iniciar, o projeto cria
 npm run dev:backend
 ```
 
-O banco SQLite fica em `apps/backend/prisma/dev.db`. Para executar apenas o setup sem iniciar o servidor, use `npm --workspace apps/backend run dev:setup`. O seed explícito (`npm --workspace apps/backend run db:seed`) recria os dados de demonstração e deve ser usado somente quando essa reposição for desejada.
+O banco SQLite fica em `apps/backend/prisma/dev.db`. SQLite foi escolhido para facilitar o desenvolvimento e a avaliação local, sem exigir um servidor de banco separado. Para executar apenas o setup sem iniciar o servidor, use `npm --workspace apps/backend run dev:setup`. O seed explícito (`npm --workspace apps/backend run db:seed`) recria os dados de demonstração e deve ser usado somente quando essa reposição for desejada.
 
 Suba os dois processos em terminais separados:
 
@@ -53,7 +53,7 @@ npm --workspace apps/backend run db:seed
 
 ## Funcionalidades
 
-- Listagem de feedbacks recentes, ordenada por data decrescente.
+- Listagem de feedbacks recentes, ordenada por `createdAt` decrescente por padrão.
 - Busca por cliente ou comentário.
 - Filtros combináveis por canal, status e nota.
 - Métricas recalculadas para o conjunto filtrado: total, média, positivos (4–5) e críticos (1–2).
@@ -114,6 +114,11 @@ Erros usam o envelope `{ "error": { "code": "...", "message": "..." } }`. Entrad
 O backend segue uma separação modular simples: rotas adaptam HTTP, o service concentra casos de uso e regras, e o repository concentra Prisma. As dependências do service são injetadas para permitir testes com fake repository.
 
 No frontend, o estado fica nos hooks e componentes da feature de feedbacks. A comunicação usa `fetch` nativo; não há React Query, Axios, store global ou autenticação. Os componentes de interface são fontes shadcn/ui mantidas no repositório. A referência Origin foi consultada, mas não foi adicionada como dependência global.
+
+## Decisões pendentes
+
+- A ordenação padrão da tabela é `createdAt DESC` (mais recentes primeiro). Como evolução, os cabeçalhos poderão ser clicáveis para alternar a ordenação por cliente em ordem alfabética, data, status e outros campos relevantes.
+- Docker não foi adotado para facilitar o setup e reduzir dependências operacionais: os scripts npm são suficientes para executar o projeto localmente.
 
 Consulte [docs/architecture.md](docs/architecture.md) para o fluxo detalhado e [docs/progress.md](docs/progress.md) para o estado de validação.
 
